@@ -3,49 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CareQueue - Live waiting room token display for clinic patients.">
-  <title>CareQueue - Waiting Area Display</title>
+  <meta name="description" content="MediCare Hospital - Live Patient Waiting Room Token Display.">
+  <title>MediCare Hospital - Waiting Area Display</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/display.css">
 </head>
 <body class="display-body">
   <div class="display-container">
+    <!-- Hospital Lounge Display Header -->
     <header class="display-header">
       <div class="display-brand">
-        <svg class="display-brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-        </svg>
-        <h1 class="display-brand-title">CareQueue</h1>
+        <div class="display-brand-icon-box" aria-hidden="true">
+          <svg class="display-brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="display-brand-title">MediCare Central Hospital</h1>
+          <span class="display-brand-subtitle">
+            <span class="live-beacon"></span>
+            OPD Waiting Lounge • Consultation Station 102
+          </span>
+        </div>
       </div>
-      <div id="display-clock" class="display-clock" aria-label="Current clinic time">--:--:--</div>
+      <div class="display-clock-group">
+        <div id="display-clock" class="display-clock" aria-label="Current clinic time">--:--:--</div>
+        <div id="display-date" class="display-date">Live Hospital Queue</div>
+      </div>
     </header>
 
+    <!-- Main Display Lounge Board -->
     <main class="display-main">
-      <!-- Huge NOW SERVING token -->
-      <section id="serving-panel" class="display-serving-panel" aria-labelledby="heading-now-serving">
-        <h2 id="heading-now-serving" class="display-label">Now Serving</h2>
-        <div id="serving-container" aria-live="polite">
-          <div class="display-idle-message">Waiting for the next patient</div>
-        </div>
-      </section>
+      <div class="display-panels-grid">
+        <!-- Huge NOW SERVING Token Board -->
+        <section id="serving-panel" class="display-serving-panel" aria-labelledby="heading-now-serving">
+          <span class="display-label-pill" id="heading-now-serving">
+            <span aria-hidden="true">🩺</span> Now Serving
+          </span>
+          <div id="serving-container" aria-live="polite">
+            <div class="display-idle-message">Waiting for next patient call</div>
+          </div>
+          <div class="display-room-banner">
+            <span>Please proceed to:</span>
+            <strong>Room 102 (OPD)</strong>
+          </div>
+        </section>
 
-      <!-- NEXT token panel -->
-      <section class="display-next-panel" aria-labelledby="heading-next-token">
-        <h2 id="heading-next-token" class="display-next-label">Next:</h2>
-        <div id="next-container" aria-live="polite">
-          <div class="display-token-subhuge">—</div>
-        </div>
-      </section>
+        <!-- NEXT Token Board -->
+        <section class="display-next-panel" aria-labelledby="heading-next-token">
+          <span class="display-next-label" id="heading-next-token">
+            Next In Line
+          </span>
+          <div id="next-container" aria-live="polite">
+            <div class="display-token-subhuge">—</div>
+          </div>
+          <p style="font-size: var(--font-xs); color: var(--color-display-text-muted); font-weight:700;">
+            Please be ready near Room 102
+          </p>
+        </section>
+      </div>
 
-      <!-- Next 5 tokens row -->
+      <!-- Upcoming Tokens Row -->
       <section class="display-upcoming-section" aria-labelledby="heading-upcoming">
-        <h2 id="heading-upcoming" class="display-upcoming-heading">Upcoming Tokens</h2>
+        <h2 id="heading-upcoming" class="display-upcoming-heading">
+          <span aria-hidden="true">⏳</span> Upcoming Queue (Next in line)
+        </h2>
         <div id="upcoming-tokens-container" class="display-upcoming-row" aria-live="polite">
           <p class="upcoming-empty">No tokens currently waiting</p>
         </div>
       </section>
     </main>
+
+    <!-- Hospital Announcement Marquee Ticker -->
+    <footer class="display-ticker-bar" aria-label="Hospital Notice">
+      <span class="ticker-badge">Notice</span>
+      <div class="ticker-content">
+        Emergency cases receive immediate triage priority • Please have your token slip ready before entering Consultation Room 102 • Hospital Pharmacy & Diagnostics located on Ground Floor Gate B • Thank you for your patience
+      </div>
+    </footer>
   </div>
 
   <script type="module" src="js/display/main.js"></script>

@@ -12,6 +12,17 @@ export function startClock(element) {
       second: '2-digit'
     });
     setText(element, timeString);
+
+    const dateEl = document.getElementById('display-date');
+    if (dateEl) {
+      const dateString = now.toLocaleDateString([], {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      setText(dateEl, `📅 ${dateString}`);
+    }
   }
 
   tick();

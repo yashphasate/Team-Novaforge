@@ -1,4 +1,6 @@
-/* Base CSS reset, typography, buttons, forms, badges, and shared components */
+/* Modern Base CSS Reset, Typography, Buttons, Forms & Hospital Animations */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -7,11 +9,12 @@
 }
 
 html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: var(--color-text-main);
-  background-color: var(--color-surface-subtle);
+  background: var(--color-bg-gradient);
+  background-attachment: fixed;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -19,19 +22,58 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* Accessible focus outlines */
+/* Subtle Animated Ambient Medical Glow in Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: -150px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(2, 132, 199, 0) 70%);
+  pointer-events: none;
+  z-index: -1;
+  animation: floatAmbient 12s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -150px;
+  left: -100px;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0) 70%);
+  pointer-events: none;
+  z-index: -1;
+  animation: floatAmbient 16s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatAmbient {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 40px) scale(1.08); }
+  100% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* Focus Outlines */
 :focus-visible {
   outline: 3px solid var(--color-primary-focus);
   outline-offset: 2px;
 }
 
-/* Typography */
-h1, h2, h3, h4 {
+/* Typography with Outfit for Headings & Numbers */
+h1, h2, h3, h4, .font-display {
+  font-family: 'Outfit', sans-serif;
   color: var(--color-text-main);
-  line-height: 1.25;
+  line-height: 1.2;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 h1 { font-size: var(--font-2xl); }
@@ -45,229 +87,284 @@ p {
 a {
   color: var(--color-primary);
   text-decoration: none;
-  font-weight: 500;
-  transition: color var(--transition-fast);
+  font-weight: 600;
+  transition: all var(--transition-fast);
 }
 
 a:hover {
   color: var(--color-primary-hover);
-  text-decoration: underline;
 }
 
-/* Buttons (Touch-friendly 48px minimum height) */
+/* Touch-friendly Modern Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  min-height: 48px;
+  min-height: 46px;
   padding: var(--space-xs) var(--space-lg);
-  font-size: var(--font-base);
-  font-weight: 600;
-  font-family: inherit;
+  font-size: var(--font-sm);
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', inherit;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   cursor: pointer;
   user-select: none;
   text-align: center;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
 }
 
 .btn:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: scale(0.97);
 }
 
 .btn:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.55;
+  filter: grayscale(0.2);
 }
 
+/* Primary Button with Gradient and Glow */
 .btn-primary {
-  background-color: var(--color-primary);
+  background: var(--color-primary-gradient);
   color: var(--color-text-inverse);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 14px 0 rgba(2, 132, 199, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(2, 132, 199, 0.45);
 }
 
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-20deg);
+  transition: 0.6s ease;
+}
+
+.btn-primary:hover:not(:disabled)::after {
+  left: 140%;
+}
+
+/* Success / Emerald Button */
+.btn-success {
+  background: var(--color-emerald-gradient);
+  color: var(--color-text-inverse);
+  box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.35);
+}
+
+.btn-success:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.45);
+}
+
+/* Danger / Emergency Button */
 .btn-danger {
-  background-color: transparent;
+  background-color: var(--color-emergency-light);
   color: var(--color-emergency);
-  border-color: var(--color-emergency);
-  min-height: 40px;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  min-height: 36px;
   padding: var(--space-2xs) var(--space-sm);
-  font-size: var(--font-sm);
+  font-size: var(--font-xs);
+  font-weight: 700;
+  border-radius: var(--radius-sm);
 }
 
 .btn-danger:hover:not(:disabled) {
-  background-color: var(--color-emergency-light);
+  background-color: var(--color-emergency);
+  color: var(--color-text-inverse);
+  box-shadow: 0 4px 12px 0 rgba(244, 63, 94, 0.35);
 }
 
+/* Secondary Button */
 .btn-secondary {
   background-color: var(--color-surface);
   color: var(--color-text-main);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary:hover:not(:disabled) {
   background-color: var(--color-surface-subtle);
-  border-color: var(--color-text-muted);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
+/* Large Full Width Buttons */
 .btn-large {
-  min-height: 52px;
-  font-size: var(--font-lg);
   width: 100%;
+  min-height: 50px;
+  font-size: var(--font-base);
+  letter-spacing: 0.01em;
 }
 
-/* Forms & Inputs */
+/* Form Controls with Smooth Glow */
 .form-group {
+  margin-bottom: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
-  margin-bottom: var(--space-md);
+  gap: var(--space-2xs);
 }
 
 .form-label {
   font-size: var(--font-sm);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
 }
 
 .form-input {
-  min-height: 48px;
+  width: 100%;
+  min-height: 46px;
   padding: var(--space-xs) var(--space-md);
   font-size: var(--font-base);
   font-family: inherit;
   color: var(--color-text-main);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .form-input:focus {
+  outline: none;
   border-color: var(--color-primary);
-}
-
-.form-input.has-error {
-  border-color: var(--color-error);
+  box-shadow: 0 0 0 4px var(--color-primary-focus);
+  background-color: #ffffff;
 }
 
 .form-error {
   font-size: var(--font-xs);
-  color: var(--color-error);
-  min-height: 1.25rem;
-  line-height: 1.25;
+  color: var(--color-emergency);
+  font-weight: 600;
+  min-height: 18px;
+  display: block;
 }
 
-/* Segmented Priority Radio Buttons */
+/* Priority Toggle Group with Vibrant Visual Feedback */
 .priority-toggle-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-xs);
+  margin-top: var(--space-2xs);
 }
 
 .priority-option {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: var(--space-xs) var(--space-md);
+  gap: var(--space-xs);
+  min-height: 46px;
+  padding: var(--space-xs) var(--space-sm);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-surface);
   cursor: pointer;
-  font-weight: 600;
-  font-size: var(--font-base);
-  transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  transition: all var(--transition-normal);
+  user-select: none;
 }
 
 .priority-option input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
+  accent-color: var(--color-primary);
+  width: 16px;
+  height: 16px;
 }
 
-.priority-option:has(input[type="radio"]:checked) {
+.priority-option:has(input:checked) {
   border-color: var(--color-primary);
-  background-color: var(--color-primary-light);
-  color: var(--color-primary-hover);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  box-shadow: 0 2px 8px 0 rgba(2, 132, 199, 0.15);
 }
 
-.priority-option.priority-emergency:has(input[type="radio"]:checked) {
+.priority-option.priority-emergency input[type="radio"] {
+  accent-color: var(--color-emergency);
+}
+
+.priority-option.priority-emergency:has(input:checked) {
   border-color: var(--color-emergency);
-  background-color: var(--color-emergency-light);
-  color: var(--color-emergency-hover);
+  background: var(--color-emergency-light);
+  color: var(--color-emergency);
+  box-shadow: 0 2px 8px 0 rgba(244, 63, 94, 0.25);
+  animation: pulseEmergencyBorder 2s infinite ease-in-out;
 }
 
-.priority-option:has(input[type="radio"]:focus-visible) {
-  outline: 3px solid var(--color-primary-focus);
-  outline-offset: 2px;
+@keyframes pulseEmergencyBorder {
+  0%, 100% { border-color: var(--color-emergency); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+  50% { border-color: #be123c; box-shadow: 0 0 0 6px rgba(244, 63, 94, 0); }
 }
 
-/* Badges */
+/* Vibrant Medical Badges */
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: var(--space-2xs) var(--space-xs);
+  gap: 6px;
+  padding: 4px 10px;
   font-size: var(--font-xs);
-  font-weight: 700;
-  border-radius: var(--radius-sm);
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  line-height: 1;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-full);
+  line-height: 1.2;
 }
 
 .badge-normal {
-  background-color: var(--color-normal-badge-bg);
+  background: var(--color-normal-badge-bg);
   color: var(--color-normal-badge-text);
+  border: 1px solid rgba(2, 132, 199, 0.2);
 }
 
 .badge-emergency {
-  background-color: var(--color-emergency-badge);
-  color: var(--color-text-inverse);
+  background: var(--color-emergency-badge-bg);
+  color: var(--color-emergency);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  animation: emergencyBlink 1.6s ease-in-out infinite;
 }
 
-/* Message Banners */
-.banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-md);
-  margin-bottom: var(--space-lg);
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
-  font-size: var(--font-sm);
-  font-weight: 500;
-  transition: opacity var(--transition-fast);
+@keyframes emergencyBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
 }
 
-.banner-success {
-  background-color: var(--color-success-bg);
-  border-color: var(--color-success-border);
-  color: var(--color-success);
+.badge-emergency::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-emergency);
+  box-shadow: 0 0 8px var(--color-emergency);
+  animation: beaconPulse 1s infinite alternate;
 }
 
-.banner-error {
-  background-color: var(--color-error-bg);
-  border-color: var(--color-error-border);
-  color: var(--color-error);
+@keyframes beaconPulse {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(1.2); opacity: 1; }
 }
 
-/* Utility to visually hide helper content for screenreaders */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+/* Pulse Animation for Live Updates */
+@keyframes heartBeatPulse {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.08); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.05); }
+  70% { transform: scale(1); }
+}
+
+.pulse-animation {
+  animation: heartBeatPulse 0.9s cubic-bezier(0.215, 0.61, 0.355, 1);
 }

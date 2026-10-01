@@ -10,12 +10,22 @@ function createRow(patient, onCancel) {
   });
 
   const badgeClass = isEmergency ? 'badge-emergency' : 'badge-normal';
-  const badgeText = isEmergency ? 'Emergency' : 'Normal';
-  const waitText = patient.estimatedWaitMinutes != null ? `${patient.estimatedWaitMinutes} min` : '—';
+  const badgeText = isEmergency ? 'Emergency' : 'Regular';
+
+  let waitPillClass = 'wait-pill';
+  if (patient.estimatedWaitMinutes != null) {
+    if (patient.estimatedWaitMinutes <= 10) waitPillClass += ' fast';
+    else if (patient.estimatedWaitMinutes <= 30) waitPillClass += ' medium';
+  }
+
+  const waitPill = createElement('span', { className: waitPillClass }, [
+    patient.estimatedWaitMinutes != null ? `${patient.estimatedWaitMinutes} mins` : '—'
+  ]);
 
   const cancelBtn = createElement('button', {
     type: 'button',
     className: 'btn btn-danger',
+    title: 'Cancel token',
     events: {
       click: async () => {
         if (!window.confirm(`Cancel token #${patient.token} for ${patient.name}?`)) {
@@ -29,12 +39,18 @@ function createRow(patient, onCancel) {
   }, ['Cancel']);
 
   row.append(
-    createElement('td', {}, [patient.position != null ? `#${patient.position}` : '—']),
+    createElement('td', {}, [
+      createElement('strong', { style: 'color: var(--color-text-muted);' }, [
+        patient.position != null ? `#${patient.position}` : '—'
+      ])
+    ]),
     createElement('td', { className: `token-cell ${isEmergency ? 'emergency' : ''}` }, [`#${patient.token}`]),
-    createElement('td', {}, [patient.name]),
-    createElement('td', {}, [`${patient.age}`]),
+    createElement('td', {}, [
+      createElement('span', { style: 'font-weight:700;' }, [patient.name])
+    ]),
+    createElement('td', {}, [`${patient.age} yrs`]),
     createElement('td', {}, [createElement('span', { className: `badge ${badgeClass}` }, [badgeText])]),
-    createElement('td', {}, [waitText]),
+    createElement('td', {}, [waitPill]),
     createElement('td', {}, [cancelBtn])
   );
 

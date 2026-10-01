@@ -1,60 +1,93 @@
-/* CSS custom properties for CareQueue design system */
+/* Modern Hospital Design System - CareQueue MediCare Theme */
 :root {
-  /* Medical teal and slate palette */
-  --color-primary: #0d9488;
-  --color-primary-hover: #0f766e;
-  --color-primary-light: #ccfbf1;
-  --color-primary-focus: rgba(13, 148, 136, 0.35);
+  /* Vibrant Hospital Color Palette */
+  --color-primary: #0284c7;             /* Clinical Medical Sky */
+  --color-primary-hover: #0369a1;
+  --color-primary-light: #e0f2fe;
+  --color-primary-gradient: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+  --color-primary-focus: rgba(2, 132, 199, 0.35);
 
-  --color-surface: #ffffff;
-  --color-surface-subtle: #f8fafc;
-  --color-surface-card: #ffffff;
+  --color-teal: #0d9488;
+  --color-teal-light: #ccfbf1;
+  --color-teal-gradient: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+
+  /* Healthy / Serving / Active Emerald */
+  --color-emerald: #10b981;
+  --color-emerald-hover: #059669;
+  --color-emerald-light: #d1fae5;
+  --color-emerald-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --color-emerald-glow: rgba(16, 185, 129, 0.35);
+
+  /* Urgent Triage / Emergency Coral & Crimson */
+  --color-emergency: #f43f5e;
+  --color-emergency-hover: #e11d48;
+  --color-emergency-light: #ffe4e6;
+  --color-emergency-gradient: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  --color-emergency-row: rgba(254, 226, 226, 0.45);
+  --color-emergency-glow: rgba(244, 63, 94, 0.45);
+
+  /* Alert / Estimated Wait Time Amber */
+  --color-amber: #f59e0b;
+  --color-amber-light: #fef3c7;
+  --color-amber-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+
+  /* Consultation & Specialty Indigo */
+  --color-indigo: #6366f1;
+  --color-indigo-light: #ede9fe;
+  --color-indigo-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+
+  /* Surface & Backgrounds */
+  --color-bg: #f8fafc;
+  --color-bg-gradient: radial-gradient(circle at 15% 15%, #eff6ff 0%, #f0fdfa 45%, #f8fafc 100%);
+  --color-surface: rgba(255, 255, 255, 0.92);
+  --color-surface-subtle: #f1f5f9;
+  --color-surface-card: rgba(255, 255, 255, 0.95);
+  --color-surface-glass: rgba(255, 255, 255, 0.75);
   --color-border: #e2e8f0;
-  --color-border-subtle: #f1f5f9;
+  --color-border-subtle: #edf2f7;
+  --color-border-glow: rgba(2, 132, 199, 0.25);
 
   --color-text-main: #0f172a;
   --color-text-muted: #64748b;
+  --color-text-subtle: #94a3b8;
   --color-text-inverse: #ffffff;
 
-  /* Priority & Status indicators */
-  --color-emergency: #dc2626;
-  --color-emergency-hover: #b91c1c;
-  --color-emergency-light: #fee2e2;
-  --color-emergency-row: #fff5f5;
-  --color-emergency-badge: #ef4444;
-
+  /* Priority & Status Badges */
   --color-normal-badge-bg: #e0f2fe;
-  --color-normal-badge-text: #0369a1;
+  --color-normal-badge-text: #0284c7;
+  --color-emergency-badge: #f43f5e;
+  --color-emergency-badge-bg: #ffe4e6;
 
-  --color-success: #16a34a;
-  --color-success-bg: #f0fdf4;
-  --color-success-border: #bbf7d0;
+  --color-success: #10b981;
+  --color-success-bg: #ecfdf5;
+  --color-success-border: #a7f3d0;
 
-  --color-error: #dc2626;
+  --color-error: #ef4444;
   --color-error-bg: #fef2f2;
   --color-error-border: #fecaca;
 
   --color-disabled: #94a3b8;
-  --color-disabled-bg: #f1f5f9;
+  --color-disabled-bg: #e2e8f0;
 
-  /* Dark theme for public display screen */
-  --color-display-bg: #090d16;
-  --color-display-surface: #111827;
-  --color-display-surface-accent: #1e293b;
-  --color-display-border: #334155;
+  /* Dark Theme for Public Lounge Display */
+  --color-display-bg: #070d1a;
+  --color-display-bg-gradient: radial-gradient(circle at 50% 10%, #0f1d38 0%, #070d1a 70%, #040810 100%);
+  --color-display-surface: rgba(15, 23, 42, 0.85);
+  --color-display-surface-accent: rgba(30, 41, 59, 0.9);
+  --color-display-border: rgba(56, 189, 248, 0.2);
+  --color-display-border-glow: rgba(56, 189, 248, 0.5);
   --color-display-text: #f8fafc;
   --color-display-text-muted: #94a3b8;
-  --color-display-accent: #2dd4bf;
-  --color-display-accent-glow: rgba(45, 212, 191, 0.4);
-  --color-display-emergency: #f87171;
-  --color-display-emergency-glow: rgba(248, 113, 113, 0.4);
-  --color-display-emergency-bg: rgba(248, 113, 113, 0.1);
-  --color-display-pulse: #fef08a;
-  --color-display-pulse-glow-start: rgba(45, 212, 191, 0.7);
-  --color-display-pulse-glow-mid: rgba(45, 212, 191, 0.9);
-  --color-display-pulse-glow-end: rgba(45, 212, 191, 0);
+  --color-display-accent: #38bdf8;
+  --color-display-accent-glow: rgba(56, 189, 248, 0.5);
+  --color-display-emergency: #fb7185;
+  --color-display-emergency-glow: rgba(251, 113, 133, 0.6);
+  --color-display-emergency-bg: rgba(244, 63, 94, 0.15);
+  --color-display-emerald: #34d399;
+  --color-display-emerald-glow: rgba(52, 211, 153, 0.5);
 
-  /* Spacing scale */
+  /* Spacing Scale */
+  --space-3xs: 0.125rem; /* 2px */
   --space-2xs: 0.25rem;  /* 4px */
   --space-xs: 0.5rem;    /* 8px */
   --space-sm: 0.75rem;   /* 12px */
@@ -64,32 +97,37 @@
   --space-2xl: 3rem;     /* 48px */
   --space-3xl: 4rem;     /* 64px */
 
-  /* Border radius */
-  --radius-sm: 0.375rem; /* 6px */
-  --radius-md: 0.5rem;   /* 8px */
-  --radius-lg: 0.75rem;  /* 12px */
-  --radius-xl: 1rem;     /* 16px */
+  /* Border Radius */
+  --radius-sm: 0.5rem;   /* 8px */
+  --radius-md: 0.75rem;  /* 12px */
+  --radius-lg: 1rem;     /* 16px */
+  --radius-xl: 1.5rem;   /* 24px */
+  --radius-2xl: 2rem;    /* 32px */
   --radius-full: 9999px;
 
-  /* Font sizes */
+  /* Font Sizes */
   --font-xs: 0.75rem;    /* 12px */
   --font-sm: 0.875rem;   /* 14px */
   --font-base: 1rem;     /* 16px */
   --font-lg: 1.125rem;   /* 18px */
   --font-xl: 1.25rem;    /* 20px */
-  --font-2xl: 1.5rem;    /* 24px */
-  --font-3xl: 2rem;      /* 32px */
-  --font-4xl: 2.75rem;   /* 44px */
-  --font-huge: clamp(4rem, 12vw, 8.5rem);
-  --font-subhuge: clamp(2rem, 6vw, 4rem);
+  --font-2xl: 1.625rem;  /* 26px */
+  --font-3xl: 2.25rem;   /* 36px */
+  --font-4xl: 3rem;      /* 48px */
+  --font-huge: clamp(4.5rem, 13vw, 9rem);
+  --font-subhuge: clamp(2.25rem, 7vw, 4.5rem);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
-  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+  /* Shadows with Colored Glows */
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 30px -6px rgba(15, 23, 42, 0.12), 0 8px 16px -4px rgba(15, 23, 42, 0.06);
+  --shadow-primary-glow: 0 8px 25px -4px rgba(2, 132, 199, 0.4);
+  --shadow-emerald-glow: 0 8px 25px -4px rgba(16, 185, 129, 0.4);
+  --shadow-emergency-glow: 0 8px 25px -4px rgba(244, 63, 94, 0.4);
 
-  /* Transitions */
-  --transition-fast: 150ms ease-in-out;
-  --transition-normal: 250ms ease-in-out;
+  /* Smooth Transitions */
+  --transition-fast: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }

@@ -10,6 +10,7 @@ import { renderNowServing } from './nowServingCard.js';
 import { renderWaitingTable } from './queueTable.js';
 import { renderStats } from './statsBar.js';
 import { initDemoControls } from './demoControls.js';
+import { playHospitalChime } from '../shared/chime.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const messageBannerContainer = $('#message-banner');
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const result = await callNextPatient();
+      playHospitalChime();
       if (result.message) {
         showSuccess(result.message);
       }

@@ -1,4 +1,4 @@
-// Coordinates pulse and flash animations when the currently served token changes.
+import { playHospitalChime } from '../shared/chime.js';
 
 let previousToken = null;
 let isInitialRun = true;
@@ -15,6 +15,7 @@ export function triggerPulseOnChange(element, currentServing) {
 
   // Flash only when transition represents a new active patient
   if (currentToken !== null && currentToken !== previousToken) {
+    playHospitalChime();
     element.classList.remove('pulse-animation');
     // Read offsetWidth to force style recalculation and restart keyframe
     void element.offsetWidth;

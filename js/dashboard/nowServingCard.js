@@ -1,6 +1,6 @@
 // Renders the Now Serving card displaying current patient token and details.
 
-import { clearElement, createElement, setText } from '../shared/dom.js';
+import { clearElement, createElement } from '../shared/dom.js';
 import { PRIORITY } from '../config.js';
 
 export function renderNowServing(container, serving) {
@@ -9,20 +9,24 @@ export function renderNowServing(container, serving) {
   if (!serving) {
     const placeholder = createElement('div', { className: 'now-serving-placeholder' }, [
       createElement('div', { className: 'now-serving-token' }, ['—']),
-      createElement('p', {}, ['No patient being served'])
+      createElement('p', {}, ['No patient currently in consultation'])
     ]);
     container.appendChild(placeholder);
     return;
   }
 
-  const tokenEl = createElement('div', {
-    className: `now-serving-token ${serving.priority === PRIORITY.EMERGENCY ? 'emergency' : ''}`
-  }, [`#${serving.token}`]);
+  const isEmergency = serving.priority === PRIORITY.EMERGENCY;
+
+  const tokenWrapper = createElement('div', { className: 'now-serving-token-wrapper' }, [
+    createElement('div', {
+      className: `now-serving-token ${isEmergency ? 'emergency' : ''}`
+    }, [`#${serving.token}`])
+  ]);
 
   const nameEl = createElement('h3', { className: 'now-serving-patient' }, [serving.name]);
 
-  const badgeClass = serving.priority === PRIORITY.EMERGENCY ? 'badge-emergency' : 'badge-normal';
-  const badgeText = serving.priority === PRIORITY.EMERGENCY ? 'Emergency' : 'Normal';
+  const badgeClass = isEmergency ? 'badge-emergency' : 'badge-normal';
+  const badgeText = isEmergency ? 'Emergency Triage' : 'Regular Walk-in';
   const badgeEl = createElement('span', { className: `badge ${badgeClass}` }, [badgeText]);
 
   const metaEl = createElement('div', { className: 'now-serving-meta' }, [
@@ -30,7 +34,12 @@ export function renderNowServing(container, serving) {
     createElement('span', {}, [`${serving.age} yrs`])
   ]);
 
-  container.appendChild(tokenEl);
+  const doctorEl = createElement('div', { className: 'doctor-badge' }, [
+    createElement('span', {}, ['Attending: Dr. Sarah Jenkins (Room 102)'])
+  ]);
+
+  container.appendChild(tokenWrapper);
   container.appendChild(nameEl);
   container.appendChild(metaEl);
+  container.appendChild(doctorEl);
 }
