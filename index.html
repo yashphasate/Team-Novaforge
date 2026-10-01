@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareQueue - Real-time clinic queue management and receptionist dashboard.">
+  <title>CareQueue - Receptionist Dashboard</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="dashboard-layout">
+    <header class="app-header">
+      <div class="brand-wrapper">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+        <h1 class="brand-title">CareQueue</h1>
+      </div>
+      <div class="header-actions">
+        <a href="display.html" target="_blank" rel="noopener noreferrer" class="link-display" id="link-public-display">
+          <span>Open Waiting Area Display</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <div id="message-banner" role="region" aria-label="Notifications"></div>
+
+    <section class="stats-bar" aria-label="Clinic Statistics">
+      <article class="stat-card">
+        <span class="stat-label">Waiting</span>
+        <span class="stat-value" id="stat-waiting">0</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Served Today</span>
+        <span class="stat-value" id="stat-served">0</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Cancelled Today</span>
+        <span class="stat-value" id="stat-cancelled">0</span>
+      </article>
+      <article class="stat-card stat-emergency">
+        <span class="stat-label">Emergencies</span>
+        <span class="stat-value" id="stat-emergencies">0</span>
+      </article>
+    </section>
+
+    <main class="dashboard-grid">
+      <aside class="dashboard-sidebar">
+        <!-- Now Serving Card -->
+        <section class="card now-serving-card" aria-labelledby="now-serving-heading">
+          <div class="card-header">
+            <h2 id="now-serving-heading" class="card-title">Now Serving</h2>
+          </div>
+          <div class="card-body">
+            <div id="now-serving-container">
+              <div class="now-serving-placeholder">
+                <div class="now-serving-token">—</div>
+                <p>No patient being served</p>
+              </div>
+            </div>
+            <div class="now-serving-actions">
+              <button type="button" id="btn-next-patient" class="btn btn-primary btn-large" disabled>
+                Next Patient
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Patient Registration Form -->
+        <section class="card" aria-labelledby="register-heading">
+          <div class="card-header">
+            <h2 id="register-heading" class="card-title">Register Patient</h2>
+          </div>
+          <div class="card-body">
+            <form id="registration-form" novalidate>
+              <div class="form-group">
+                <label for="patient-name" class="form-label">Full Name</label>
+                <input type="text" id="patient-name" name="name" class="form-input" placeholder="e.g. Asha Sharma" autocomplete="off" required maxlength="60">
+                <span id="name-error" class="form-error" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="patient-age" class="form-label">Age (0 - 120)</label>
+                <input type="number" id="patient-age" name="age" class="form-input" placeholder="e.g. 34" min="0" max="120" required>
+                <span id="age-error" class="form-error" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <span class="form-label" id="priority-label">Priority Level</span>
+                <div class="priority-toggle-group" role="radiogroup" aria-labelledby="priority-label">
+                  <label class="priority-option">
+                    <input type="radio" name="priority" value="normal" checked>
+                    <span>Normal</span>
+                  </label>
+                  <label class="priority-option priority-emergency">
+                    <input type="radio" name="priority" value="emergency">
+                    <span>Emergency</span>
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" id="btn-issue-token" class="btn btn-primary btn-large">
+                Issue Token
+              </button>
+            </form>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Waiting Queue Table & Empty State -->
+      <section class="dashboard-content card" aria-labelledby="queue-heading">
+        <div class="card-header">
+          <h2 id="queue-heading" class="card-title">Waiting Queue</h2>
+        </div>
+        <div class="card-body">
+          <div id="queue-table-wrapper" class="table-wrapper">
+            <table class="queue-table">
+              <thead>
+                <tr>
+                  <th scope="col">Pos</th>
+                  <th scope="col">Token</th>
+                  <th scope="col">Patient Name</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">Priority</th>
+                  <th scope="col">Est. Wait</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody id="queue-tbody"></tbody>
+            </table>
+          </div>
+
+          <div id="empty-queue-state" class="empty-state" style="display: none;">
+            <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <h3 class="empty-state-title">No one is waiting right now</h3>
+            <p class="empty-state-desc">Use the registration form on the left or seed demo data to populate the queue.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-credits">
+        CareQueue Clinic Queue Management System
+      </div>
+      <div class="demo-controls">
+        <button type="button" id="btn-demo-seed" class="btn btn-secondary btn-demo">
+          Load Demo Data
+        </button>
+        <button type="button" id="btn-demo-reset" class="btn btn-secondary btn-demo">
+          Reset Demo
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="js/dashboard/main.js"></script>
+</body>
+</html>

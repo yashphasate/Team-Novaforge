@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareQueue - Live waiting room token display for clinic patients.">
+  <title>CareQueue - Waiting Area Display</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/display.css">
+</head>
+<body class="display-body">
+  <div class="display-container">
+    <header class="display-header">
+      <div class="display-brand">
+        <svg class="display-brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+        <h1 class="display-brand-title">CareQueue</h1>
+      </div>
+      <div id="display-clock" class="display-clock" aria-label="Current clinic time">--:--:--</div>
+    </header>
+
+    <main class="display-main">
+      <!-- Huge NOW SERVING token -->
+      <section id="serving-panel" class="display-serving-panel" aria-labelledby="heading-now-serving">
+        <h2 id="heading-now-serving" class="display-label">Now Serving</h2>
+        <div id="serving-container" aria-live="polite">
+          <div class="display-idle-message">Waiting for the next patient</div>
+        </div>
+      </section>
+
+      <!-- NEXT token panel -->
+      <section class="display-next-panel" aria-labelledby="heading-next-token">
+        <h2 id="heading-next-token" class="display-next-label">Next:</h2>
+        <div id="next-container" aria-live="polite">
+          <div class="display-token-subhuge">—</div>
+        </div>
+      </section>
+
+      <!-- Next 5 tokens row -->
+      <section class="display-upcoming-section" aria-labelledby="heading-upcoming">
+        <h2 id="heading-upcoming" class="display-upcoming-heading">Upcoming Tokens</h2>
+        <div id="upcoming-tokens-container" class="display-upcoming-row" aria-live="polite">
+          <p class="upcoming-empty">No tokens currently waiting</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/display/main.js"></script>
+</body>
+</html>
